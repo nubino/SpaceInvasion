@@ -7,6 +7,12 @@ void setup()
 
 void draw()
 {
+  test();
+}
+
+void test()
+{
   background(#ffffff);
-  rect(10,10,200,200);
+  fill(#66ffff);
+  rect(0.5*width - 100, 0.5*height - 100, 200, 200);
 }
