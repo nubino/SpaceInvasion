@@ -1,0 +1,12 @@
+-graphic dimensions:
+	VERTICAL:
+	-36 *64
+	-72 *128 - Player / Enemy size
+	-144*256
+	HORIZONTAL:
+	-32 *18
+	-64 *36
+	-128*72
+	-256*144
+-Class names in Editor
+	patorjk.com/software/taag/#p=display&f=ANSI Shadow
