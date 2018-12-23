@@ -100,11 +100,12 @@ public class Player extends Actor{
     //Mouse controlls
     setOrigin(new PVector(mouseX, getOrigin().y));
     //TODO keyboard controlls to be implemented
-    if (keyPressed == true) {
-      if (key == ' ') {
-        print("pew");
-        Bullet Bullet1 = new Bullet("Bullet.PNG", getPosition(), new PVector(0,10), 20, true);
-      }
-    }
+    //if (keyPressed == true) {
+    //  if (key == ' ') {
+    //    print("pew");
+    //    Bullet temp = new Bullet("Bullet.PNG", getPosition(), new PVector(0,-10), 20);
+    //    bullets.add(temp);
+    //  }
+    //}
   }
 }

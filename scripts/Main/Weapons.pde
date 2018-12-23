@@ -61,18 +61,18 @@ public class Bullet extends Weapon{
   private PImage sprite;
   private Boolean setActive = false;
   
-  Bullet(String sprite,PVector position, PVector velocity, int damage, Boolean setActive)
+  Bullet(String sprite,PVector position, PVector velocity, int damage)
   {
-    setActive = setActive;
-    loadImage(sprite);
+    this.sprite = loadImage(sprite);
     this.velocity = velocity;
     setPosition(position);
     setDamage(damage);
   }
   
-  void draw(){
+  void move(){
     setPosition(PVector.add(getPosition(), velocity));
     print("lul");
     image(sprite, getPosition().x, getPosition().y);
+    //rect(getPosition().x, getPosition().y, 1, -5);
   }
 }
