@@ -71,7 +71,7 @@ public class Bullet extends Weapon{
   
   void move(){
     setPosition(PVector.add(getPosition(), velocity));
-    print("lul");
+    //print("lul");
     image(sprite, getPosition().x, getPosition().y);
     //rect(getPosition().x, getPosition().y, 1, -5);
   }

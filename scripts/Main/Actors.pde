@@ -97,15 +97,60 @@ public class Player extends Actor{
   
   public void controll()
   {
-    //Mouse controlls
-    setOrigin(new PVector(mouseX, getOrigin().y));
-    //TODO keyboard controlls to be implemented
-    //if (keyPressed == true) {
-    //  if (key == ' ') {
-    //    print("pew");
+    float posX = getOrigin().x ;
+    
+  //Mouse controls
+    //setOrigin(new PVector(mouseX, getOrigin().y));
+    
+  //Keyboard controls
+    if (keyPressed == true){
+      if(key == 'd' ||key == 'a'){
+          if (key == 'd'){
+          posX=posX+3;
+          setOrigin(new PVector(posX,getOrigin().y));
+        }else if(key == 'a'){
+          posX=posX-3;
+          setOrigin(new PVector(posX,getOrigin().y));
+        }
     //    Bullet temp = new Bullet("Bullet.PNG", getPosition(), new PVector(0,-10), 20);
     //    bullets.add(temp);
-    //  }
-    //}
+      }
+    }
+  }
+}
+
+//███████╗███╗   ██╗███████╗███╗   ███╗██╗   ██╗
+//██╔════╝████╗  ██║██╔════╝████╗ ████║╚██╗ ██╔╝
+//█████╗  ██╔██╗ ██║█████╗  ██╔████╔██║ ╚████╔╝ 
+//██╔══╝  ██║╚██╗██║██╔══╝  ██║╚██╔╝██║  ╚██╔╝  
+//███████╗██║ ╚████║███████╗██║ ╚═╝ ██║   ██║   
+//╚══════╝╚═╝  ╚═══╝╚══════╝╚═╝     ╚═╝   ╚═╝   
+
+public class Enemy extends Actor{
+  
+  Enemy(PVector origin, float scale )
+  {
+    print(origin);
+    setOrigin(origin);
+    setScale(scale);
+  }
+  
+    public void display()//??
+  {
+    float posY = getOrigin().y;
+    float posX = getOrigin().x;
+    float radiant = cRadiant;//??
+    float r = 1.5;//radius
+    
+    double Ankat = Math.cos(radiant);
+    float Ankathete =(float) Ankat;
+    //print(radiant);
+    posX = posX + Ankathete * r;
+    posY = posY + 0.25;
+    setOrigin(new PVector(posX,posY));
+    
+    setPosition(originToPosition());
+    image(getSprite(), getPosition().x, getPosition().y, getSize().x, getSize().y);
+
   }
 }
