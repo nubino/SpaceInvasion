@@ -12,6 +12,8 @@ Boolean spacePressed = false;
 
 void setup()
 {
+//SYSTEM
+  registerMethod("pre", this);
 //INTERFACE
   size(1280, 720);
   frameRate(144);
@@ -35,7 +37,27 @@ void setup()
   bullets = new ArrayList();
 }
 
-void draw()
+void pre() // used to update positions and other atributes
+{
+//PLAYERS
+  controlls();
+
+//ENEMIES
+  cRadiant = cRadiant+0.03125;//Enemy X-movement
+  
+//BULLETS
+  for(int i = 0; bullets.size() != 0 && i < bullets.size(); i++) {
+    bullets.get(i).move();
+    for(int j = 0; enemies.size() != 0 && j < enemies.size(); j++){
+      if(bullets.get(i).hitdetection( enemies.get(j).getOrigin(), enemies.get(j).getSize())){
+        if(enemies.size() != 0){enemies.remove(enemies.get(j));}
+      }
+    }
+  if(bullets.size() != 0){ if(bullets.get(i).getOrigin().y < 0){bullets.remove(bullets.get(i));}}
+  }
+}
+
+void draw()// used to display
 {
 //INTERFACE
   background(#ffffff);
@@ -43,10 +65,8 @@ void draw()
   
 //PLAYERS
   player1.display();
-  controlls();
   
 //ENEMIES
-  cRadiant = cRadiant+0.03125;//Enemy X-movement
   //for(int i=0 ; i< enemy.length ; i++){
   //enemy[i].display();
   //}
@@ -56,18 +76,7 @@ void draw()
 
 //BULLETS
   for(Bullet temp : bullets) {
-    temp.move();
     temp.display();
-    //for(int j=0 ; j< 8 ; j++){//looking if a bullet hits an enemy
-    //  if(temp.hitdetection( enemy[j].getOrigin(), enemy[j].getSize())){
-    //    print("BUTZ ");
-
-    //  }
-    for(Enemy t : enemies){
-      if(temp.hitdetection( t.getOrigin(), t.getSize())){
-        print("BUTZ ");
-      }
-    }
   }
   
 //POSTPROCESSING
