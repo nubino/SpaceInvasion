@@ -1,11 +1,48 @@
 public class Weapon{
+  
+  private PVector origin;
   private PVector position;
+  private float   scale;
+  PImage  spriteP;
   private int damage;
   private int range;
   private int attackspeed;
   
   //
+  //conversion methodes
+  
+  public PVector originToPosition()
+  {
+    return new PVector(origin.x - spriteP.width*scale/2, origin.y - spriteP.height*scale/2);
+  }
+  
+  public PVector positionToOrigin()
+  {
+    return new PVector(position.x + spriteP.width*scale/2, position.y + spriteP.height*scale/2);
+  }
+  
+  //
   //start getter / setter methodes
+  
+  public void setSprite(String spriteP)
+  {
+    this.spriteP = loadImage(spriteP);
+  }
+  
+  public PImage getSprite()
+  {
+    return spriteP  ;
+  }
+  
+  public void setScale(float scale)
+  {
+    this.scale = scale;
+  }
+  
+  public float getScale()
+  {
+    return scale;
+  }
   
   public PVector getPosition()
   {
@@ -16,6 +53,22 @@ public class Weapon{
   {
     this.position = position;
   }
+  
+  public PVector getOrigin()
+  {
+    return origin;
+  }
+  
+    public void setOrigin(PVector origin)
+  {
+    this.origin = origin;
+  }
+  
+  public PVector getSize()
+  {
+    return new PVector(spriteP.width*scale, spriteP.height*scale);
+  }
+  
   public int getDamage()
   {
     return damage;
@@ -58,21 +111,37 @@ public class Weapon{
 
 public class Bullet extends Weapon{
   private PVector velocity;
-  private PImage sprite;
   
-  Bullet(String sprite,PVector position, PVector velocity, int damage)
+  Bullet(PVector origin, String sprite, float scale, PVector velocity, int damage)
   {
-    this.sprite = loadImage(sprite);
-    this.velocity = velocity;
-    setPosition(position);
+    setOrigin(origin);
+    setSprite(sprite);
+    setScale(scale);
     setDamage(damage);
+    this.velocity = velocity;
+    
   }
   
   void move(){
-    setPosition(PVector.add(getPosition(), velocity));
+    setOrigin(PVector.add(getOrigin(), velocity));
   }
   
   void display(){
-    image(sprite, getPosition().x, getPosition().y);
+    setPosition(originToPosition());
+    image(getSprite(), getPosition().x, getPosition().y, getSize().x, getSize().y);
   }
+  
+   boolean hitdetection(PVector Enemy, PVector size){
+     
+     PVector origin2 = Enemy;
+     PVector radius = size;
+   
+     float dist = getOrigin().dist(origin2);
+     if(dist < this.spriteP.width + radius.x/2){
+       return true;
+     }else
+     return false;
+   }
+  
+  
 }
