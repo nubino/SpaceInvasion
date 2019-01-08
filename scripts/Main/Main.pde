@@ -1,9 +1,5 @@
 // Main class used to launch the application
 
-int a;
-int b;
-int c;
-
 Player player1;
 ArrayList <Bullet> bullets;
 Enemy [] enemy = new Enemy[8];
