@@ -3,7 +3,7 @@ public class Weapon{
   private PVector origin;
   private PVector position;
   private float   scale;
-  PImage  spriteP;
+  protected PImage  spriteP;
   private int damage;
   private int range;
   private int attackspeed;
@@ -110,6 +110,7 @@ public class Weapon{
 //TODO GET IT TO DO STH
 
 public class Bullet extends Weapon{
+
   private PVector velocity;
   
   Bullet(PVector origin, String sprite, float scale, PVector velocity, int damage)
@@ -142,6 +143,4 @@ public class Bullet extends Weapon{
      }else
      return false;
    }
-  
-  
 }

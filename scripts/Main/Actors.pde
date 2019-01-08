@@ -99,13 +99,14 @@ public class Player extends Actor{
     setScale(scale);
     setSpeed(speed);
   }
-  
   public void move(String direction)
   {
     if(direction == "LEFT"){getOrigin().x -= getSpeed(); setOrigin(new PVector(getOrigin().x, getOrigin().y));}
     if(direction == "RIGHT"){getOrigin().x += getSpeed(); setOrigin(new PVector(getOrigin().x, getOrigin().y));}
+
+    if(this.getOrigin().x > width){this.setOrigin(new PVector(width, getOrigin().y));}
+    if(this.getOrigin().x < 0){this.setOrigin(new PVector(0, getOrigin().y));}
   }
-  
   public void display()
   {
     setPosition(originToPosition());
@@ -121,9 +122,7 @@ public class Player extends Actor{
 //╚══════╝╚═╝  ╚═══╝╚══════╝╚═╝     ╚═╝   ╚═╝   
 
 public class Enemy extends Actor{
-  
-  boolean deleteMyself = false;
-  
+ 
   Enemy(PVector origin, float scale )
   {
     //print(origin);
@@ -147,6 +146,5 @@ public class Enemy extends Actor{
     
     setPosition(originToPosition());
     image(getSprite(), getPosition().x, getPosition().y, getSize().x, getSize().y);
-
   }
 }
