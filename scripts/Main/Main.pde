@@ -2,7 +2,8 @@
 
 Player player1;
 ArrayList <Bullet> bullets;
-Enemy [] enemy = new Enemy[8];
+//Enemy [] enemy = new Enemy[8];
+ArrayList <Enemy> enemies = new ArrayList();
 UI u1 = new UI();
 private float cRadiant = 0;//radian measure counter for enemy movement
 Boolean dPressed = false;
@@ -22,9 +23,12 @@ void setup()
   player1.setSprite("Player.PNG");
 
 //ENEMIES
-    for(int i = 0 ; i<8 ; i++){
-    enemy[i]= new Enemy(new PVector(i*160+80, -height / 8), 0.5f);
-    enemy[i].setSprite("Player.PNG");
+  for(int i = 0 ; i<8 ; i++){
+    Enemy t = new Enemy(new PVector(i*160+80, -height / 8), 0.5f);
+    t.setSprite("Player.PNG");
+    enemies.add(t);
+    //enemy[i]= new Enemy(new PVector(i*160+80, -height / 8), 0.5f);
+    //enemy[i].setSprite("Player.PNG");
   }
   
 //BULLETS
@@ -43,18 +47,25 @@ void draw()
   
 //ENEMIES
   cRadiant = cRadiant+0.03125;//Enemy X-movement
-  for(int i=0 ; i< enemy.length ; i++){
-  enemy[i].display();//??
+  //for(int i=0 ; i< enemy.length ; i++){
+  //enemy[i].display();
+  //}
+  for(Enemy t : enemies) {
+    t.display();
   }
 
 //BULLETS
   for(Bullet temp : bullets) {
     temp.move();
     temp.display();
-    for(int j=0 ; j< enemy.length ; j++){//looking if a bullet hits an enemy
-      if(temp.hitdetection(enemy[j].getOrigin(), enemy[j].getSize())){
+    //for(int j=0 ; j< 8 ; j++){//looking if a bullet hits an enemy
+    //  if(temp.hitdetection( enemy[j].getOrigin(), enemy[j].getSize())){
+    //    print("BUTZ ");
+
+    //  }
+    for(Enemy t : enemies){
+      if(temp.hitdetection( t.getOrigin(), t.getSize())){
         print("BUTZ ");
-        //TODO delete hit enemy and bullet
       }
     }
   }
