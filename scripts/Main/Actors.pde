@@ -94,7 +94,7 @@ public class Player extends Actor{
 
   Player(PVector origin, float scale, float speed)
   {
-    print(origin);
+    //print(origin);
     setOrigin(origin);
     setScale(scale);
     setSpeed(speed);
@@ -126,7 +126,7 @@ public class Enemy extends Actor{
   
   Enemy(PVector origin, float scale )
   {
-    print(origin);
+    //print(origin);
     setOrigin(origin);
     setScale(scale);
   }
