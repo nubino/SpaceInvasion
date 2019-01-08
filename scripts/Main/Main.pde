@@ -51,6 +51,12 @@ void draw()
   for(Bullet temp : bullets) {
     temp.move();
     temp.display();
+    for(int j=0 ; j< enemy.length ; j++){//looking if a bullet hits an enemy
+      if(temp.hitdetection(enemy[j].getOrigin(), enemy[j].getSize())){
+        print("BUTZ ");
+        //TODO delete hit enemy and bullet
+      }
+    }
   }
   
 //POSTPROCESSING
@@ -71,7 +77,7 @@ if(key == ' '){ spacePressed = false;}
 
 public void controlls(){
   //Mouse controls
-  player1.setOrigin(new PVector(mouseX, player1.getOrigin().y));
+  //player1.setOrigin(new PVector(mouseX, player1.getOrigin().y));
   if(aPressed){
     player1.move("LEFT");
   }
@@ -79,7 +85,7 @@ public void controlls(){
     player1.move("RIGHT");
   }
   if(spacePressed){//TODO fires a bullet every frame, cooldown Timer needed
-    Bullet temp = new Bullet("Laser.PNG", player1.getOrigin(), new PVector(0,-10), 20);
+    Bullet temp = new Bullet(player1.getOrigin(), "Laser.PNG", 1f, new PVector(0,-10), 20);
     bullets.add(temp);
   }
 }

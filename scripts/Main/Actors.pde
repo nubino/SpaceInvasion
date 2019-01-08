@@ -122,6 +122,8 @@ public class Player extends Actor{
 
 public class Enemy extends Actor{
   
+  boolean deleteMyself = false;
+  
   Enemy(PVector origin, float scale )
   {
     print(origin);
