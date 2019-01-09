@@ -99,6 +99,7 @@ public class Player extends Actor{
     setScale(scale);
     setSpeed(speed);
   }
+  
   public void move(String direction)
   {
     if(direction == "LEFT"){getOrigin().x -= getSpeed(); setOrigin(new PVector(getOrigin().x, getOrigin().y));}
@@ -107,6 +108,7 @@ public class Player extends Actor{
     if(this.getOrigin().x > width){this.setOrigin(new PVector(width, getOrigin().y));}
     if(this.getOrigin().x < 0){this.setOrigin(new PVector(0, getOrigin().y));}
   }
+  
   public void display()
   {
     setPosition(originToPosition());

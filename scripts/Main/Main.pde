@@ -12,7 +12,10 @@ private long lvl1millis;
 private long lvl1time;
 
 private Player player1;
+int weaponMode = 0;
 private ArrayList <Bullet> bullets;
+private ArrayList <Rocket> rockets;
+private Laser laser1;
 private ArrayList <Enemy> enemies = new ArrayList();
 
 public int score = 0;
@@ -22,11 +25,13 @@ public boolean darkmode = true;
 private Boolean dPressed = false;
 private Boolean aPressed = false;
 private Boolean spacePressed = false;
+private Boolean sPressed = false;
 
 public void setup()
 {
 //SYSTEM
   registerMethod("pre", this);
+  
 //INTERFACE
   size(1280, 720);
   frameRate(60);
@@ -54,8 +59,10 @@ public void setup()
     enemies.add(t);
   }
   
-//BULLETS
+//WEAPONS
   bullets = new ArrayList();
+  rockets = new ArrayList();
+  laser1 = new Laser(player1.getOrigin(), "Laser.png", 1f, 9001 );
 }
 
 
@@ -91,6 +98,7 @@ private void scene0(String selection)
     if(button2.clicked())
     {
       score = 0;
+      weaponMode = 0;
       wave = 0;
       lvl1time = millis();
       enemies.removeAll(enemies);
@@ -127,7 +135,8 @@ private void scene1(String selection)
 //PLAYERS
   controlls();
   
-//BULLETS
+//WEAPONS
+  //BULLET
   for(int i = 0; bullets.size() != 0 && i < bullets.size(); i++) {
     bullets.get(i).move();
     for(int j = 0; enemies.size() != 0 && j < enemies.size(); j++){
@@ -139,7 +148,11 @@ private void scene1(String selection)
   if(bullets.size() != 0){ if(bullets.get(i).getOrigin().y < 0){bullets.remove(bullets.get(i));}}
   }
   }
-  
+  //ROCKET
+  for(int i = 0; rockets.size() != 0 && i < rockets.size(); i++) {
+    rockets.get(i).move();
+  }
+
 //ENEMIES
   if(lvl1millis >= 5000 && wave == 0){
   for(int i = 0 ; i<8 ; i++){
@@ -190,15 +203,19 @@ private void scene1(String selection)
       enemies.removeAll(enemies); scene = 0;
     }
   }
-
-//BULLETS
+  
+//WEAPONS
   for(Bullet temp : bullets) {
     temp.display();
   }
+  for(Rocket rock : rockets){
+    rock.display();  
+  }
+  if(spacePressed && weaponMode == 2){
+    laser1.display(player1.getOrigin().x);
+  }
   
 //POSTPROCESSING
-  //if(darkmode){//filter(INVERT);
-  //}
   }
 }
 
@@ -206,12 +223,28 @@ public void keyPressed() {
 if(key == 'a'){ aPressed = true;}
 if(key == 'd'){ dPressed = true;}
 if(key == ' '){ spacePressed = true;}
+if(key == 's'){ sPressed = true;}
 }
 
 public void keyReleased() {
-if(key == 'a'){ aPressed = false;}
-if(key == 'd'){ dPressed = false;}
-if(key == ' '){ spacePressed = false;}
+  if(key == 'a'){ aPressed = false;}
+  if(key == 'd'){ dPressed = false;}
+  if(key == ' '){ spacePressed = false;}
+  if(key == 's'){ 
+    if(weaponMode == 0 && sPressed && scene != 0){
+      weaponMode = 1;
+      sPressed = false;
+      print(weaponMode);
+    }else if(weaponMode == 1 && sPressed && scene != 0){
+      weaponMode = 2;
+      sPressed = false;
+      print(weaponMode);
+    }else if(weaponMode == 2 && sPressed && scene != 0){
+      weaponMode = 0;
+      sPressed = false;
+      print(weaponMode);
+    }
+  }
 }
 
 public void mouseReleased() {
@@ -231,15 +264,20 @@ private void controlls(){
   if(dPressed){
     player1.move("RIGHT");
   }
-  if(spacePressed && millis() > timer + 500){//TODO fires a bullet every frame, cooldown Timer needed
+  if(spacePressed && millis() > timer + 500 && weaponMode == 0){ //BULLET
     Bullet temp = new Bullet(player1.getOrigin(), "Bullet.PNG", 1f, new PVector(0,-10), 20);
     bullets.add(temp);
     timer = millis();
     println(lvl1millis);
+  }else if(spacePressed && millis() > timer + 1000 && weaponMode == 1){ //ROCKET
+    Rocket rock = new Rocket(player1.getOrigin(), "Rocket.png", 1f, 40);
+    rockets.add(rock);
+    timer = millis();
+  }else if(spacePressed && weaponMode == 2){ //LASER
     
+    laser1.display(player1.getOrigin().x);
   }
 }
-
 class Time
 {
   public float deltaTime;

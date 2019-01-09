@@ -119,8 +119,7 @@ public class Bullet extends Weapon{
     setSprite(sprite);
     setScale(scale);
     setDamage(damage);
-    this.velocity = velocity;
-    
+    this.velocity = velocity;  
   }
   
   void move(){
@@ -143,4 +142,84 @@ public class Bullet extends Weapon{
      }else
      return false;
    }
+}
+
+//██████╗  ██████╗  ██████╗██╗  ██╗███████╗████████╗
+//██╔══██╗██╔═══██╗██╔════╝██║ ██╔╝██╔════╝╚══██╔══╝
+//██████╔╝██║   ██║██║     █████╔╝ █████╗     ██║   
+//██╔══██╗██║   ██║██║     ██╔═██╗ ██╔══╝     ██║   
+//██║  ██║╚██████╔╝╚██████╗██║  ██╗███████╗   ██║   
+//╚═╝  ╚═╝ ╚═════╝  ╚═════╝╚═╝  ╚═╝╚══════╝   ╚═╝   
+
+public class Rocket extends Weapon{
+  private int x = 0; 
+  private PVector velocity = new PVector(0, 0);
+  
+  Rocket(PVector origin, String sprite, float scale, int damage){
+    
+    setOrigin(origin);
+    setSprite(sprite);
+    setScale(scale);
+    setDamage(damage);
+  }
+  
+  void move(){
+    x++;
+    velocity.y = 0.0625*(-(x)^2);
+    
+    setOrigin(PVector.add(getOrigin(), velocity));
+  }
+  
+  void display(){
+    setPosition(originToPosition());
+    image(getSprite(), getPosition().x, getPosition().y, getSize().x, getSize().y);
+  }
+  
+  // boolean hitdetection(PVector Enemy, PVector size){
+     
+  //   PVector eOrigin = Enemy;
+  //   PVector radius = size;
+   
+  //   float dist = getOrigin().dist(eOrigin);
+  //   if(dist < this.spriteP.width + radius.x/2){
+  //     return true;
+  //   }else
+  //   return false;  
+  //}
+}
+
+//██╗      █████╗ ███████╗███████╗██████╗ 
+//██║     ██╔══██╗██╔════╝██╔════╝██╔══██╗
+//██║     ███████║███████╗█████╗  ██████╔╝
+//██║     ██╔══██║╚════██║██╔══╝  ██╔══██╗
+//███████╗██║  ██║███████║███████╗██║  ██║
+//╚══════╝╚═╝  ╚═╝╚══════╝╚══════╝╚═╝  ╚═╝
+
+public class Laser extends Weapon{
+
+  Laser(PVector origin, String sprite, float scale, int damage){
+  
+    setOrigin(new PVector (player1.getOrigin().x, height/2-player1.getSize().y));
+    setSprite(sprite);
+    setScale(scale);
+    setDamage(damage);
+  }
+  
+  void display(float playerX){
+    setOrigin(new PVector(playerX, getOrigin().y));
+    setPosition(originToPosition());
+    image(getSprite(), getPosition().x, getPosition().y, getSize().x, getSize().y);
+  }
+  
+  //boolean hitdetection(PVector Enemy, PVector size){
+     
+  // PVector eOrigin = Enemy;
+  // PVector radius = size;
+   
+  // float dist = getOrigin().dist(eOrigin);
+  // if(dist < this.spriteP.width + radius.x/2){
+  //   return true;
+  // }else
+  // return false;  
+  //}
 }
