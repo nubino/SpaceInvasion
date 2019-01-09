@@ -126,7 +126,7 @@ public class Enemy extends Actor{
   float radiant = 0;
   float posY;
   float posX;
-  float r = 1.5;//radius
+  float r = 1;//radius
   double Ankat;
   float Ankathete;
   int speed;
@@ -146,7 +146,7 @@ public class Enemy extends Actor{
     radiant += 0.01f;
     Ankathete = (float)Ankat;
     posX = posX + Ankathete * r;
-    posY = posY + 0.25f;
+    posY = posY + 0.75f;
     setOrigin(new PVector(posX,posY));
     
     setPosition(originToPosition());
