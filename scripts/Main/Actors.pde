@@ -123,7 +123,7 @@ public class Player extends Actor{
 
 public class Enemy extends Actor{
  
-  float radiant = 0;
+  double radian = 0;
   float posY;
   float posX;
   float r = 1;//radius
@@ -142,11 +142,11 @@ public class Enemy extends Actor{
   {
     posX = getOrigin().x;
     posY = getOrigin().y;
-    Ankat = Math.cos(radiant);
-    radiant += 0.01f;
+    radian += 0.01f;
+    Ankat = Math.cos(radian);
     Ankathete = (float)Ankat;
     posX = posX + Ankathete * r;
-    posY = posY + 0.75f;
+    posY = posY + 0.6f;
     setOrigin(new PVector(posX,posY));
     
     setPosition(originToPosition());

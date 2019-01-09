@@ -49,11 +49,9 @@ public void setup()
 
 //ENEMIES
   for(int i = 0 ; i<8 ; i++){
-    Enemy t = new Enemy(new PVector(i*160+80, -height / 8), 0.5f, 10  );
+    Enemy t = new Enemy(new PVector(i*160+80, -height / 8), 0.5f, 10);
     t.setSprite("Player.PNG");
     enemies.add(t);
-    //enemy[i]= new Enemy(new PVector(i*160+80, -height / 8), 0.5f);
-    //enemy[i].setSprite("Player.PNG");
   }
   
 //BULLETS
@@ -92,6 +90,7 @@ private void scene0(String selection)
     button2.display();
     if(button2.clicked())
     {
+      score = 0;
       wave = 0;
       lvl1time = millis();
       enemies.removeAll(enemies);
@@ -142,7 +141,7 @@ private void scene1(String selection)
   }
   
 //ENEMIES
-  if(lvl1millis >= 10000 && wave == 0){
+  if(lvl1millis >= 5000 && wave == 0){
   for(int i = 0 ; i<8 ; i++){
     print("HEYYYY");
     Enemy t = new Enemy(new PVector(i*160+80, -height / 8), 0.5f, 10  );
@@ -182,9 +181,6 @@ private void scene1(String selection)
   player1.display();
   
 //ENEMIES
-  //for(int i=0 ; i< enemy.length ; i++){
-  //enemy[i].display();
-  //}
   for(int i = 0; enemies.size() != 0 && i < enemies.size(); i++){
     enemies.get(i).display();
     if(enemies.get(i).getOrigin().y > height)
