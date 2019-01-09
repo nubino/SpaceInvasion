@@ -90,7 +90,13 @@ private void scene0(String selection)
     button1.display();
     if(button1.clicked()){darkmode = !darkmode;}
     button2.display();
-    if(button2.clicked()){scene = 1;}
+    if(button2.clicked())
+    {
+      wave = 0;
+      lvl1time = millis();
+      enemies.removeAll(enemies);
+      scene = 1;
+    }
     button3.display();
     if(button3.clicked()){exit();}
     logo1.display();
