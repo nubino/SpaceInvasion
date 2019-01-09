@@ -9,6 +9,7 @@ PFont font1;
 private int timer;
 private int wave = 0;
 private long lvl1millis;
+private long lvl1time;
 
 private Player player1;
 private ArrayList <Bullet> bullets;
@@ -62,7 +63,7 @@ public void setup()
 
 public void pre() // used to update positions and other atributes
 {
-  lvl1millis = millis();
+  lvl1millis = millis() - lvl1time;
   scene1("PRE");
 }
 
@@ -85,6 +86,7 @@ private void scene0(String selection)
   if(scene == 0 && selection == "DRAW")
   {
     background(#ffffff);
+    
     button1.display();
     if(button1.clicked()){darkmode = !darkmode;}
     button2.display();
@@ -92,11 +94,12 @@ private void scene0(String selection)
     button3.display();
     if(button3.clicked()){exit();}
     logo1.display();
+    
     textFont(font1);
-  textSize(40);
-  fill(0);
-  textAlign(CENTER, CENTER);
-  if(score != 0){text("GAME OVER! Your Score: " + score, width / 2 - width / 4, height / 2 - height / 8 + height / 3, width / 2, height / 8); }
+    textSize(40);
+    fill(0);
+    textAlign(CENTER, CENTER);
+    if(score != 0){text("GAME OVER! Your Score: " + score, width / 2 - width / 4, height / 2 - height / 8 + height / 3, width / 2, height / 8); }
   }
   
   //POSTPROCESSING
@@ -131,6 +134,7 @@ private void scene1(String selection)
   if(bullets.size() != 0){ if(bullets.get(i).getOrigin().y < 0){bullets.remove(bullets.get(i));}}
   }
   }
+  
 //ENEMIES
   if(lvl1millis >= 10000 && wave == 0){
   for(int i = 0 ; i<8 ; i++){
@@ -175,9 +179,14 @@ private void scene1(String selection)
   //for(int i=0 ; i< enemy.length ; i++){
   //enemy[i].display();
   //}
-  for(Enemy t : enemies) {
-    t.display();
-    //if(t.getOrigin().y > height){enemies.removeAll(enemies); scene = 0;}
+  for(int i = 0; enemies.size() != 0 && i < enemies.size(); i++){
+    enemies.get(i).display();
+    if(enemies.get(i).getOrigin().y > height)
+    {
+      wave = 0;
+      lvl1time = millis();
+      enemies.removeAll(enemies); scene = 0;
+    }
   }
 
 //BULLETS
@@ -224,7 +233,7 @@ private void controlls(){
     Bullet temp = new Bullet(player1.getOrigin(), "Bullet.PNG", 1f, new PVector(0,-10), 20);
     bullets.add(temp);
     timer = millis();
-    println(millis());
+    println(lvl1millis);
     
   }
 }
