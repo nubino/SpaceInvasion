@@ -18,31 +18,49 @@ public class UI
       point(star[i].x, star[i].y);
     }
   }
+}
+
+  
+public class Button
+{
+  PVector origin;
+  PVector size;
+  PVector [] point;      //point array
+  PVector [] velocity;   //speed of the points
+  PVector tL = new PVector(); //top left corner
+  PVector bR = new PVector(); //bottom right corner
+  float speed;
+  int thickness = 2;
+  public Boolean mouseP = false;
+  
+  public Button(PVector origin, PVector size, int pointCount, float speed)
+  {
+    this.origin = origin;
+    this.size = size;
+    this.speed = speed;
+    point = new PVector[pointCount];
+    velocity = new PVector[pointCount];
+    
+    tL.x = origin.x - size.x/2;  
+    tL.y = origin.y - size.y/2;
+    bR.x = origin.x + size.x/2;
+    bR.y = origin.y + size.y/2;
+    }
   
   void buttonSetup()
   {
     for(int i = 0 ; i < point.length ; i++)
     {
-      point[i] = new PVector(random(width/2 - width / 4, width/2 + width / 4), random(height/2 - height / 16, height/2 + height / 16));
+      point[i] = new PVector(random(tL.x, bR.x), random(tL.y, bR.y));
       velocity[i] = new PVector(random(-speed, speed), random(-speed, speed));
     }
   }
   
-  boolean button(PVector origin)
-{
-  
-  PVector tL = new PVector();
-  PVector bR = new PVector();
-  
-  tL.x = origin.x - width / 4;
-  tL.y = origin.y - height / 16;
-  bR.x = origin.x + width / 4;
-  bR.y = origin.y + height / 16;
-  
+  public void display()
+  {
   
   for(int i = 0 ; i < point.length ; i++)
     {
-      surface.setSize((int)resolution.x, (int)resolution.y);
       point[i].add(velocity[i]);
       
       if(point[i].x <= tL.x){ point[i].x = tL.x + 1; velocity[i].x *= -1; }
@@ -76,44 +94,87 @@ public class UI
       }
       point(point[i].x, point[i].y);
     }
-  
-     
-  strokeWeight(size);
+  strokeWeight(thickness);
   fill(0,0,0,0);
-  rect(tL.x ,tL.y, width / 2, height / 8);
-  strokeWeight(1);
+  rect(tL.x ,tL.y, size.x, size.y);
+  strokeWeight(thickness);
+  }
   
-  if(mouseX > tL.x && mouseY > tL.y && mouseX < width/2 + bR.x && mouseY < bR.y){ size = 4; if(mouseP == true){ mouseP = false; return true;}}
-  else{ size = 2;}
-   
-  //image(spriteP, float(width / 2 - spriteP.width / 2), float( height / 6 - spriteP.height / 2));
+  public boolean clicked()
+  {
+  
+  if(mouseX > tL.x && mouseY > tL.y && mouseX < bR.x && mouseY < bR.y){ thickness = 4; if(mouseP == true){ mouseP = false; return true;}}
+  else{ thickness = 2;}
+  
   mouseP = false;
   return false;
-}
-  
-}
-
-private Boolean mouseP = false;
-PVector [] point = new PVector[64];
-PVector [] velocity = new PVector[64];
-float speed = .3;
-int size = 4;
-PVector resolution = new PVector(1280, 720);
-private PImage spriteP;
-
-void mouseReleased() {
-  mouseP = true;
+  }
+ 
 }
 
-//void setup()
+//public class UI
 //{
+ 
+//  PVector [] star = new PVector[512];
   
-//  size(1280, 720);
-//  surface.setResizable(true);
-//  for(int i = 0 ; i < point.length ; i++)
+//  void starSetup()
+//  {
+//    for(int i = 0 ; i < star.length ; i++)
 //    {
-//      point[i] = new PVector(random(width/2 - width / 4, width/2 + width / 4), random(height/2 - height / 16, height/2 + height / 16));
-//      velocity[i] = new PVector(random(-speed, speed), random(-speed, speed));
+//      star[i] = new PVector(random(0, width), random(0, height));
 //    }
-//    spriteP = loadImage("Logo.png");
+//  }
+  
+//  void stars()
+//  {
+//    for(int i = 0 ; i < star.length ; i++)
+//    {
+//      point(star[i].x, star[i].y);
+//    }
+//  }
+//}
+
+  
+//public class Button
+//{
+//  PVector origin;
+//  PVector size;
+//  PVector [] point;      //point array
+//  PVector [] velocity;   //speed of the points
+//  PVector tL = new PVector(); //top left corner
+//  PVector bR = new PVector(); //bottom right corner
+//  float speed;
+//  int thickness = 2;
+//  public Boolean mouseP = false;
+  
+//  public Button(PVector origin, PVector size, int pointCount, float speed)
+//  {
+//    this.origin = origin;
+//    this.size = size;
+    
+//    tL.x = origin.x - size.x/2;  
+//    tL.y = origin.y - size.y/2;
+//    bR.x = origin.x + size.x/2;
+//    bR.y = origin.y + size.y/2;
+//  }
+  
+//  public void display()
+//  {
+ 
+//  strokeWeight(thickness);
+//  fill(0,0,0,0);
+//  rect(tL.x ,tL.y, size.x, size.y);
+//  strokeWeight(thickness);
+//  }
+  
+//  public boolean clicked()
+//  {
+  
+//  if(mouseX > tL.x && mouseY > tL.y && mouseX < bR.x && mouseY < bR.y){ thickness = 4; if(mouseP == true){ mouseP = false; return true;}}
+//  else{ thickness = 2;}
+  
+//  mouseP = false;
+//  return false;
+//  }
+ 
 //}

@@ -123,25 +123,30 @@ public class Player extends Actor{
 
 public class Enemy extends Actor{
  
-  Enemy(PVector origin, float scale )
+  float radiant = 0;
+  float posY;
+  float posX;
+  float r = 1.5;//radius
+  double Ankat;
+  float Ankathete;
+  int speed;
+  
+  Enemy(PVector origin, float scale, int speed)
   {
-    //print(origin);
     setOrigin(origin);
     setScale(scale);
+    this.speed = speed;
   }
   
-    public void display()//??
+    public void display()
   {
-    float posY = getOrigin().y;
-    float posX = getOrigin().x;
-    float radiant = cRadiant;//??
-    float r = 1.5;//radius
-    
-    double Ankat = Math.cos(radiant);
-    float Ankathete =(float) Ankat;
-    //print(radiant);
+    posX = getOrigin().x;
+    posY = getOrigin().y;
+    Ankat = Math.cos(radiant);
+    radiant += 0.01f;
+    Ankathete = (float)Ankat;
     posX = posX + Ankathete * r;
-    posY = posY + 0.25;
+    posY = posY + 0.25f;
     setOrigin(new PVector(posX,posY));
     
     setPosition(originToPosition());
