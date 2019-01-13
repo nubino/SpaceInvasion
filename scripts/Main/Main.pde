@@ -62,7 +62,7 @@ public void setup()
 //WEAPONS
   bullets = new ArrayList();
   rockets = new ArrayList();
-  laser1 = new Laser(player1.getOrigin(), "Laser.png", 1f, 9001 );
+  laser1 = new Laser(player1.getOrigin(), "Laser.PNG", 1f, 9001 );
 }
 
 
